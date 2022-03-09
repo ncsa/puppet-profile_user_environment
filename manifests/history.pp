@@ -1,4 +1,4 @@
-# @summary Setup default history environment for all users
+# @summary Configure default history environment for all users
 #
 # @param filename
 #   Name of history file.

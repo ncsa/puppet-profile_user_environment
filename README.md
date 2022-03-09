@@ -16,7 +16,11 @@ NCSA Common Puppet Profile - configure user environment
 
 ## Description
 
-This puppet profile customizes the default user environment
+This puppet profile customizes default environment settings for users.
+
+Currently it configures the following:
+- History configuration
+- Session timeout
 
 
 ## Setup
@@ -34,8 +38,8 @@ The goal is that no paramters are required to be set. The default paramters shou
 
 ## Dependencies
 
-- n/a
-- EPEL ?
+N/A
+
 
 ## Reference
 
