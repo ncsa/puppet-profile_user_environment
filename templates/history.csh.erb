@@ -1,0 +1,6 @@
+# This file is managed by Puppet.
+set savehist=<%= @size %>
+set history= ( <%= @size %> "%h %Y-%W-%D %T %R\n" )
+set histfile = ~/.csh_<%= @filename %>
+set histappend
+set cmdhist

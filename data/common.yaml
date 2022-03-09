@@ -1,0 +1,9 @@
+---
+profile_user_environment::history::filename: "commands.log"
+profile_user_environment::history::size: 50000
+
+profile_user_environment::timeout::limit_ssh_to_24hr: false
+profile_user_environment::timeout::limit_ssh_to_24hr_packages:
+  - "perl-DateTime"
+  - "perl-Proc-ProcessTable"  ## FROM EPEL
+profile_user_environment::timeout::session_minutes: 1440  # 24h

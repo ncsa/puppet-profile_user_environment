@@ -1,0 +1,6 @@
+# This file is managed by Puppet.
+export HISTTIMEFORMAT="%h %d %H:%M:%S "
+export HISTSIZE=<%= @size %>
+shopt -s histappend
+shopt -s cmdhist
+export HISTFILE=~/.bash_<%= @filename %>
