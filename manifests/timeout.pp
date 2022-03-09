@@ -1,20 +1,18 @@
-# @summary Setup session timeouts for all users
+# @summary Configure session timeouts for all users
+#
+#
+# @param limit_ssh_hours
+#   Number of elapsed hours to limit a ssh session.
+#   A value of <= 0 results in NO limit.
 #
 # @param session_minutes
 #   Number of minutes of idle before session times out and ends.
 #
-# @param limit_ssh_to_24hr
-#   Whether to limit ssh sessions to 24 hours
-#
-# @param limit_ssh_to_24hr_packages
-#   List of required packages to install to support the limit_ssh_to_24hr script
-#
 # @example
 #   include profile_user_environment::timeout
 class profile_user_environment::timeout (
+  Integer $limit_ssh_hours,
   Integer $session_minutes,
-  Boolean $limit_ssh_to_24hr,
-  Array[String] $limit_ssh_to_24hr_packages,
 ) {
 
   if ( $session_minutes > 0 ) {
@@ -29,15 +27,21 @@ class profile_user_environment::timeout (
     }
   }
 
-  if ( $limit_ssh_to_24hr) {
-    ensure_packages($limit_ssh_to_24hr_packages)
-    file { '/root/cron_scripts/limit_ssh_to_24hr.pl':
+  if ( $limit_ssh_hours > 0 ) {
+    file { '/root/cron_scripts/limit_ssh_hours.sh':
       mode   => '0700',
-      source => "puppet:///modules/${module_name}/root/cron_scripts/limit_ssh_to_24hr.pl",
+      source => "puppet:///modules/${module_name}/root/cron_scripts/limit_ssh_hours.sh",
     }
-    cron { 'limit_ssh_to_24hr':
-      command => '/root/cron_scripts/limit_ssh_to_24hr.pl',
+    cron { 'limit_ssh_hours':
+      command => "/root/cron_scripts/limit_ssh_hours.sh -t ${limit_ssh_hours} >/dev/null 2>&1",
       minute  => [0, 20, 40],
+    }
+  } else {
+    file { '/root/cron_scripts/limit_ssh_hours.sh':
+      ensure => absent,
+    }
+    cron { 'limit_ssh_hours':
+      ensure => absent,
     }
   }
 

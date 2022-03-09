@@ -1,6 +1,4 @@
-# @summary A short summary of the purpose of this class
-#
-# A description of what this class does
+# @summary Configure various environment settings for users
 #
 # @example
 #   include profile_user_environment

@@ -6,15 +6,15 @@
 
 ### Classes
 
-* [`profile_user_environment`](#profile_user_environment): A short summary of the purpose of this class
-* [`profile_user_environment::history`](#profile_user_environmenthistory): Setup default history environment for all users
-* [`profile_user_environment::timeout`](#profile_user_environmenttimeout): Setup session timeouts for all users
+* [`profile_user_environment`](#profile_user_environment): Configure various environment settings for users
+* [`profile_user_environment::history`](#profile_user_environmenthistory): Configure default history environment for all users
+* [`profile_user_environment::timeout`](#profile_user_environmenttimeout): Configure session timeouts for all users
 
 ## Classes
 
 ### <a name="profile_user_environment"></a>`profile_user_environment`
 
-A description of what this class does
+Configure various environment settings for users
 
 #### Examples
 
@@ -26,7 +26,7 @@ include profile_user_environment
 
 ### <a name="profile_user_environmenthistory"></a>`profile_user_environment::history`
 
-Setup default history environment for all users
+Configure default history environment for all users
 
 #### Examples
 
@@ -58,7 +58,7 @@ Number of history records to keep in history file.
 
 ### <a name="profile_user_environmenttimeout"></a>`profile_user_environment::timeout`
 
-Setup session timeouts for all users
+Configure session timeouts for all users
 
 #### Examples
 
@@ -72,25 +72,19 @@ include profile_user_environment::timeout
 
 The following parameters are available in the `profile_user_environment::timeout` class:
 
+* [`limit_ssh_hours`](#limit_ssh_hours)
 * [`session_minutes`](#session_minutes)
-* [`limit_ssh_to_24hr`](#limit_ssh_to_24hr)
-* [`limit_ssh_to_24hr_packages`](#limit_ssh_to_24hr_packages)
+
+##### <a name="limit_ssh_hours"></a>`limit_ssh_hours`
+
+Data type: `Integer`
+
+Number of elapsed hours to limit a ssh session.
+A value of <= 0 results in NO limit.
 
 ##### <a name="session_minutes"></a>`session_minutes`
 
 Data type: `Integer`
 
 Number of minutes of idle before session times out and ends.
-
-##### <a name="limit_ssh_to_24hr"></a>`limit_ssh_to_24hr`
-
-Data type: `Boolean`
-
-Whether to limit ssh sessions to 24 hours
-
-##### <a name="limit_ssh_to_24hr_packages"></a>`limit_ssh_to_24hr_packages`
-
-Data type: `Array[String]`
-
-List of required packages to install to support the limit_ssh_to_24hr script
 
