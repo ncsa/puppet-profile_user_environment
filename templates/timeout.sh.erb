@@ -1,5 +1,10 @@
 # This file is managed by Puppet.
 # TMOUT IN SECONDS
-TMOUT=<%= @session_seconds %>
-readonly TMOUT
-export TMOUT
+#[ ! -z "$TMOUT" ] && echo "Session TMOUT already set"
+if type shopt &>/dev/null ; then
+  # BASH
+  [ -z "$TMOUT" ] && TMOUT=<%= @session_seconds %> && readonly TMOUT && export TMOUT
+elif type setopt &>/dev/null ; then
+  # ZSH
+  [ -z "$TMOUT" ] && TMOUT=<%= @session_seconds %> && typeset -gxr TMOUT
+fi
