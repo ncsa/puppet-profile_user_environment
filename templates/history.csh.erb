@@ -1,6 +1,10 @@
 # This file is managed by Puppet.
 set savehist=<%= @size %>
 set history= ( <%= @size %> "%h %Y-%W-%D %T %R\n" )
-set histfile = ~/.csh_<%= @filename %>
+if ( $?SUDO_USER ) then
+  set histfile = ~/.csh_${SUDO_USER}_<%= @filename %>
+else
+  set histfile = ~/.csh_<%= @filename %>
+endif
 set histappend
 set cmdhist

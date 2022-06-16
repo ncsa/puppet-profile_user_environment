@@ -1,7 +1,11 @@
 # This file is managed by Puppet.
 export HISTTIMEFORMAT="%h %d %H:%M:%S "
 export HISTSIZE=<%= @size %>
-export HISTFILE=~/.bash_<%= @filename %>
+if [ -n "$SUDO_USER" ]; then
+  export HISTFILE=~/.bash_${SUDO_USER}_<%= @filename %>
+else
+  export HISTFILE=~/.bash_<%= @filename %>
+fi
 if type shopt &>/dev/null ; then
   # BASH
   shopt -s histappend
