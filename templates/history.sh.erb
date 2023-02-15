@@ -1,10 +1,27 @@
 # This file is managed by Puppet.
 export HISTTIMEFORMAT="%h %d %H:%M:%S "
 export HISTSIZE=<%= @size %>
-if [ -n "$SUDO_USER" ]; then
-  export HISTFILE=~/.bash_${SUDO_USER}_<%= @filename %>
+
+# GET PARENT USER OF CURRENT USER
+thisPID=$$
+origUser=$(whoami)
+thisUser=$origUser
+while [ "$thisUser" == "$origUser" -a "$thisPID" != "0" ]
+do
+    ARR=($(ps h -p$thisPID -ouser,ppid;))
+    thisUser="${ARR[0]}"
+    myPPid="${ARR[1]}"
+    thisPID=$myPPid
+done
+PARENT_USER=$(getent passwd "$thisUser" | cut -d: -f1)
+
+if [ "$PARENT_USER" != "root" -a "$USER" != "$PARENT_USER" ]; then
+  export HISTFILE=~/.sh_${PARENT_USER}_<%= @filename %>
 else
-  export HISTFILE=~/.bash_<%= @filename %>
+  export HISTFILE=~/.sh_<%= @filename %>
+  if [ "$USER" == "root" ]; then
+    export HISTIGNORE=*QUALYS*:*ORIG_PATH*:echo\ *TEST*
+  fi
 fi
 if type shopt &>/dev/null ; then
   # BASH
