@@ -1,8 +1,20 @@
 # This file is managed by Puppet.
 set savehist=<%= @size %>
 set history= ( <%= @size %> "%h %Y-%W-%D %T %R\n" )
-if ( $?SUDO_USER ) then
-  set histfile = ~/.csh_${SUDO_USER}_<%= @filename %>
+
+# GET PARENT USER OF CURRENT USER
+set thisPID=$$
+set origUser=`whoami`
+set thisUser="$origUser"
+while ( "$thisUser" == "$origUser" && "$thisPID" != "0")
+    set ARR=`ps h -p$thisPID -ouser,ppid;`
+    set thisUser=`echo $ARR | awk '{ print $1 }'`
+    set thisPID=`echo $ARR | awk '{ print $NF }'`
+end
+set PARENT_USER=`getent passwd "$thisUser" | cut -d: -f1`
+
+if ( "$PARENT_USER" != "root" && "$USER" != "$PARENT_USER" ) then
+  set histfile = ~/.csh_${PARENT_USER}_<%= @filename %>
 else
   set histfile = ~/.csh_<%= @filename %>
 endif
