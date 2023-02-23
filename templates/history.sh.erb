@@ -16,9 +16,9 @@ done
 PARENT_USER=$(getent passwd "$thisUser" | cut -d: -f1)
 
 if [ "$PARENT_USER" != "root" -a "$USER" != "$PARENT_USER" ]; then
-  export HISTFILE=~/.sh_${PARENT_USER}_<%= @filename %>
+  export HISTFILE=~/.bash_${PARENT_USER}_<%= @filename %>
 else
-  export HISTFILE=~/.sh_<%= @filename %>
+  export HISTFILE=~/.bash_<%= @filename %>
   if [ "$USER" == "root" ]; then
     export HISTIGNORE=*QUALYS*:*ORIG_PATH*:echo\ *TEST*
   fi
