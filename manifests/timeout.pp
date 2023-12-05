@@ -14,7 +14,6 @@ class profile_user_environment::timeout (
   Integer $limit_ssh_hours,
   Integer $session_minutes,
 ) {
-
   if ( $session_minutes > 0 ) {
     $session_seconds = $session_minutes * 60
     file { '/etc/profile.d/timeout.csh':
@@ -44,5 +43,4 @@ class profile_user_environment::timeout (
       ensure => absent,
     }
   }
-
 }

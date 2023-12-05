@@ -1,6 +1,21 @@
 ---
+lookup_options:
+  profile_user_environment::quota::command_paths:
+    merge:
+      strategy: "unique"
+  profile_user_environment::quota::skip_users:
+    merge:
+      strategy: "unique"
+
 profile_user_environment::history::filename: "commands.log"
 profile_user_environment::history::size: 50000
+
+profile_user_environment::quota::command_paths: []
+profile_user_environment::quota::file_prefix: "z99"
+profile_user_environment::quota::skip_users:
+  - "qualys"
+  - "root"
+profile_user_environment::quota::timeout_interval_seconds: 5
 
 profile_user_environment::timeout::limit_ssh_hours: 0  # NO LIMIT
 profile_user_environment::timeout::session_minutes: 1440  # 24h

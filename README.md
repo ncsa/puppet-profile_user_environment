@@ -21,19 +21,20 @@ This puppet profile customizes default environment settings for users.
 Currently it configures the following:
 - History configuration
 - Session timeout
-
+- (Optionally) run quota command(s) at login for non-root users
 
 ## Setup
 
 Include profile_user_environment in a puppet profile file:
-```
+```ruby
 include ::profile_user_environment
 ```
 
-
 ## Usage
 
-The goal is that no paramters are required to be set. The default paramters should work for most NCSA deployments out of the box.
+The goal is that no parameters are required to be set. The default parameters should work for most NCSA deployments out of the box.
+
+If you'd like to have one or more quota commands run at login you'll need to define one or more paths for the `profile_user_environment::quota::command_paths` parameter.
 
 
 ## Dependencies

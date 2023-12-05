@@ -1,0 +1,17 @@
+# quota.sh: Managed by Puppet
+
+# only run if:
+#   1. the user is NOT in $profile_user_environment::quota::skip_users, AND
+#   2. the user hasn't switched identity
+whoami | egrep -q '^(<%= join($profile_user_environment::quota::skip_users, "|") %>)$'
+if [[ $? != 0 && $USER == `logname` ]]; then
+
+  # run quota scripts
+  echo
+<% $profile_user_environment::quota::command_paths.each |$path| { -%>
+  timeout <%= $profile_user_environment::quota::timeout_interval_seconds %> <%= $path %>
+  echo
+<% } -%>
+
+fi
+

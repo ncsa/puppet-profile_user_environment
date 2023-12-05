@@ -13,7 +13,6 @@ class profile_user_environment::history (
   String  $filename,
   Integer $size,
 ) {
-
   if ( $size > 0 and ! empty($filename) ) {
     file { '/etc/profile.d/history.csh':
       mode    => '0644',
@@ -24,5 +23,4 @@ class profile_user_environment::history (
       content => template('profile_user_environment/history.sh.erb'),
     }
   }
-
 }
