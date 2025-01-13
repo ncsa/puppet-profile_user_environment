@@ -8,7 +8,7 @@ origUser=$(whoami)
 thisUser=$origUser
 while [ "$thisUser" == "$origUser" -a "$thisPID" != "0" ]
 do
-    ARR=($(ps h -p$thisPID -ouser,ppid;))
+    ARR=($(ps h -p$thisPID -ouser:30,ppid;))
     thisUser="${ARR[0]}"
     myPPid="${ARR[1]}"
     thisPID=$myPPid

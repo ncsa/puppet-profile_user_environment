@@ -7,7 +7,7 @@ set thisPID=$$
 set origUser=`whoami`
 set thisUser="$origUser"
 while ( "$thisUser" == "$origUser" && "$thisPID" != "0")
-    set ARR=`ps h -p$thisPID -ouser,ppid;`
+    set ARR=`ps h -p$thisPID -ouser:30,ppid;`
     set thisUser=`echo $ARR | awk '{ print $1 }'`
     set thisPID=`echo $ARR | awk '{ print $NF }'`
 end
